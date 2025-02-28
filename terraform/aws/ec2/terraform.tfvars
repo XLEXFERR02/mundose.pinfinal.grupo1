@@ -1,0 +1,4 @@
+vpc_id        = "vpc-04adbff65ec30ad98"
+ami_id        = "ami-0e1bed4f06a3b463d"
+key_name      = "bastion-key"
+public_ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCaX7T2R3vxl27lzltqjTLSNDcJzsGvwo6Z9ZMb7xz9OaIfV3TLSxXVUEQddmyvjzoDJLi1H4F5EOEbKplOyDVAJNLiTm++xXLPFJx8yMCSfBwpo8qygW8uQ+1Fc+mXSfqp5SHaIJo4tCj1eJge3FqftUKpB9MP34NbxjsO27AYlBc7LM1flDYItZ70MUD8EuFsOfKVpx/pLwBxHuBz4qlGcQjC68TAmdpERBYyiEeEYJHhrPPfGF/Q5QhKj630zwzBr3hLTcb+S8WtsrPx4+YaDYfFb9KDajAeibgVDrpQWiR5om6Fs/fNe3qy041+mcCA3Ft8f0Xv32RAv8t1T4V22WZwRz1xipkF9jfasZi/OG+xzlW6eyVCt4FEA0f1zSzLFqVYUfIKF5wHBiJ4cVMEA3ako6y+HzhwixOz45awpLfbj3f57jt6D3rfaXQmjaSE2ynnZfHxc02rweFK5yAPYcFitdOnOEfH3Ux072EB49GOq4n8l5eCVAh0H+4rvUEhv3lPYkmUsu5wrZ4HdOuX5+IgeRzTCQCoTajZd24JTbSfdSfWB2DsVC131KU/LSaTs9hPkw5K9bDhGvh6sd/5BE3TYQ/A2ZXsm5J9kodOc7IrrpIGjR/mOPdBVNe6NF00Azc7PTHb/ZEGlqvUzDE6tV9Lb3kZF/ItyJjjyZwl2w==" #dec@dec-prd"
