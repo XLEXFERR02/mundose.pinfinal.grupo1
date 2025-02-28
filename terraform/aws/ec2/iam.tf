@@ -17,12 +17,9 @@ resource "aws_iam_role" "ec2_admin_role" {
 EOF
 }
 
-data "aws_iam_role" "ec2_admin_role" {
+resource "aws_iam_instance_profile" "ec2_admin_profile" {
   name = "ec2-admin"
-}
-
-data "aws_iam_instance_profile" "ec2_admin_profile" {
-  name = "ec2-admin"
+  role = aws_iam_role.ec2_admin_role.name
 }
 
 resource "aws_iam_policy" "ec2_admin_policy" {
@@ -32,6 +29,6 @@ resource "aws_iam_policy" "ec2_admin_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_bastion_eks_policy" {
-  role       = data.aws_iam_role.ec2_admin_role.name
+  role       = aws_iam_role.ec2_admin_role.name
   policy_arn = aws_iam_policy.ec2_admin_policy.arn
 }
