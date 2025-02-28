@@ -31,7 +31,7 @@ resource "aws_instance" "bastion" {
   key_name      = aws_key_pair.pin.key_name
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
 
-  iam_instance_profile = data.aws_iam_instance_profile.ec2_admin_profile.name
+   iam_instance_profile = aws_iam_instance_profile.ec2_admin_profile.name
 
   user_data = file("${path.module}/scripts/install_tools.sh")
 
