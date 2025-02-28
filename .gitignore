@@ -1,3 +1,6 @@
-/keys/
-/keys/bastion-keys
-/keys/bastio-key.pub
+# Ignorar claves privadas y archivos sensibles
+keys/
+*.pem
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
