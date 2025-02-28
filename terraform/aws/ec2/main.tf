@@ -31,19 +31,6 @@ resource "aws_instance" "bastion" {
   key_name      = aws_key_pair.pin.key_name
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
 
-  user_data = file("${path.module}/scripts/install_tools.sh")
-
-  tags = {
-    Name = "bastion-host"
-  }
-}
-
-resource "aws_instance" "bastion" {
-  ami                  = var.ami_id
-  instance_type        = var.instance_type
-  key_name             = aws_key_pair.pin.key_name
-  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
-
   iam_instance_profile = "ec2-admin"  # Se usa el perfil ya existente
 
   user_data = file("${path.module}/scripts/install_tools.sh")
