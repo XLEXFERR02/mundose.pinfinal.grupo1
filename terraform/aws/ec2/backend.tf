@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket  = "mi-terraform-state-bucket"    # Nombre del bucket S3 donde se almacenará el estado
     key     = "path/to/statefile.tfstate"      # Ruta y nombre del archivo de estado dentro del bucket
-    region  = "us-east-1"
+    region  = "us-west-2"
     encrypt = true
 
     # La siguiente línea se utiliza para habilitar el bloqueo del estado usando una tabla DynamoDB.
