@@ -7,7 +7,7 @@ terraform {
 
     # La siguiente línea se utiliza para habilitar el bloqueo del estado usando una tabla DynamoDB.
     # El bloqueo evita que múltiples procesos modifiquen el estado simultáneamente.
-    # Como no es un ambiente productivo se deshabilita el bloqueo comentando dicha linea.
+    # Como no es un ambiente productivo se deshabilita el bloqueo comentando dicha linea .
     # dynamodb_table = "terraform-lock-table"
   }
 }
