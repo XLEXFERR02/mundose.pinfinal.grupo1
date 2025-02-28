@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  deploy:
+  plan:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout código del repositorio
         uses: actions/checkout@v2
@@ -28,8 +27,30 @@ jobs:
       - name: Inicializar Terraform
         run: cd terraform/aws/ec2 && terraform init
 
-      - name: Plan de Terraform
+      - name: Ejecutar `terraform plan`
         run: cd terraform/aws/ec2 && terraform plan
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código del repositorio
+        uses: actions/checkout@v2
+
+      - name: Configurar credenciales AWS desde GitHub Secrets
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      - name: Inicializar Terraform
+        run: cd terraform/aws/ec2 && terraform init
 
       - name: Aplicar cambios con Terraform
         run: cd terraform/aws/ec2 && terraform apply -auto-approve
