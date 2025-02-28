@@ -1,6 +1,10 @@
 resource "aws_iam_role" "ec2_admin_role" {
   name = "ec2-admin"
 
+data "aws_iam_instance_profile" "ec2_admin_profile" {
+  name = "ec2-admin"
+}
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
