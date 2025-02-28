@@ -5,11 +5,11 @@ resource "aws_key_pair" "pin" {
 
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"
-  description = "Security Group para EC2"
+  description = "Security Group for Bastion Host"
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "SSH acceso público"
+    description = "Allow SSH Access"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -17,6 +17,7 @@ resource "aws_security_group" "bastion_sg" {
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
