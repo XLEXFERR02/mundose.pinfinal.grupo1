@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  namespace: default
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      resources:
+        requests:
+          cpu: "250m"     # Solicita 250 milicores de CPU
+          memory: "256Mi" # Solicita 256 MiB de RAM
+        limits:
+          cpu: "500m"     # Límite de 500 milicores de CPU
+          memory: "512Mi" # Límite de 512 MiB de RAM
