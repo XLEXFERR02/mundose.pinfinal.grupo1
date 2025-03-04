@@ -1,0 +1,27 @@
+# grafana.yaml
+replicaCount: 1
+
+grafana:
+  adminUser: admin
+  adminPassword: "MSE!pinfinalG1."  # Este valor se puede sobrescribir con el flag --set
+  # Ejemplo de configuración de datasource (opcional)
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus-server.prometheus.svc.cluster.local
+          isDefault: true
+
+persistence:
+  enabled: true
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+
+service:
+  type: LoadBalancer
+  port: 80
