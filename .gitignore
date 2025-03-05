@@ -1,6 +1,8 @@
 # Ignorar claves privadas y archivos sensibles
 keys/
 *.pem
+*.swp 
 terraform.tfstate
 terraform.tfstate.backup
 .terraform/
+.vscode

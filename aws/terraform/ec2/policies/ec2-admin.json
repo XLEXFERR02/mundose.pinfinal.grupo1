@@ -12,6 +12,7 @@
           "cloudformation:DescribeStackEvents",
           "cloudformation:ContinueUpdateRollback",
           "cloudformation:GetTemplate",
+          "cloudformation:DescribeStackResources",
           "cloudformation:CreateChangeSet"
           
         ],
@@ -20,27 +21,22 @@
       {
         "Effect": "Allow",
         "Action": [
-
             "eks:CreateNodegroup",
             "eks:UpdateNodegroupConfig",
             "eks:DeleteNodegroup",
             "eks:ListNodegroups",
             "eks:DescribeNodegroup",
-
             "eks:ListFargateProfiles",
             "eks:DescribeFargateProfile",
-
             "eks:CreateAddon",
             "eks:UpdateAddon",
             "eks:DeleteAddon",
             "eks:DescribeAddon",
             "eks:DescribeAddonVersions",
             "eks:ListAddons",
-            "eks:DescribeAddonConfiguration",
-            
+            "eks:DescribeAddonConfiguration",         
             "eks:ListUpdates",
             "eks:DescribeUpdate",
-
             "eks:CreateCluster",
             "eks:DeleteCluster",
             "eks:UpdateClusterVersion",
@@ -48,7 +44,7 @@
             "eks:ListClusters",
             "eks:DescribeCluster",
             "eks:DescribeClusterVersions",
-
+            
             "eks:AssociateEncryptionConfig",
             "eks:DescribeEncryptionConfig",
 
