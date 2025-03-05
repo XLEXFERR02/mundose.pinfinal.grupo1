@@ -16,5 +16,7 @@ helm install prometheus prometheus-community/prometheus \
   --namespace prometheus \
   --set alertmanager.persistentVolume.storageClass="gp2" \
   --set server.persistentVolume.storageClass="gp2"
+  --set server.service.type="NodePort" \
+  --set server.service.nodePort=32000
 
 echo "Prometheus se ha instalado correctamente."
