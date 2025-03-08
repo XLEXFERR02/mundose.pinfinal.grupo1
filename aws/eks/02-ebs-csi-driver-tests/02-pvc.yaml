@@ -5,9 +5,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ebs-sc
+  storageClassName: ebs-sc-gp3
   resources:
     requests:
       storage: 1Gi
 
-#kubectl apply -f pvc.yaml

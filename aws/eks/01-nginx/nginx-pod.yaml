@@ -13,8 +13,9 @@ spec:
         - containerPort: 80
       resources:
         requests:
-          cpu: "250m"     # Solicita 250 milicores de CPU
-          memory: "256Mi" # Solicita 256 MiB de RAM
+          cpu: "50m"     # Solicita 50 milicores de CPU
+          memory: "64Mi" # Solicita 64 MiB de RAM
         limits:
-          cpu: "500m"     # Límite de 500 milicores de CPU
-          memory: "512Mi" # Límite de 512 MiB de RAM
+          cpu: "100m"     # Límite de 100 milicores de CPU
+          memory: "128Mi" # Límite de 128 MiB de RAM
+

@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Plantilla para crear/actualizar el rol EKSIAMAdminAccessRole con trust relationship"
+
+Resources:
+  EKSIAMAdminAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "EKSIAMAdminAccessRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - arn:aws:iam::__ACCOUNT_ID__:user/crico
+                - arn:aws:iam::__ACCOUNT_ID__:user/dcabral
+                - arn:aws:iam::__ACCOUNT_ID__:user/ahuataspique
+                - arn:aws:iam::__ACCOUNT_ID__:user/aferreira
+                - arn:aws:iam::__ACCOUNT_ID__:user/cgonzalez
+                - arn:aws:iam::__ACCOUNT_ID__:role/ec2-admin
+            Action: sts:AssumeRole

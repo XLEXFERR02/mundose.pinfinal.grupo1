@@ -3,7 +3,7 @@ replicaCount: 1
 
 grafana:
   adminUser: admin
-  adminPassword: "MSE!pinfinalG1."  # Este valor se puede sobrescribir con el flag --set
+  adminPassword: ""  # Este valor se sobreescribe con el flag --set
   # Ejemplo de configuración de datasource (opcional)
   datasources:
     datasources.yaml:
