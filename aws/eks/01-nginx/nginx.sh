@@ -4,7 +4,7 @@ set -euo pipefail
 # Función de ayuda
 usage() {
   echo "Uso: $0 [-d]"
-  echo "  -d   Modo delete: elimina el Pod y el Service de Nginx en el namespace 'nginx' en lugar de crearlos."
+  echo "  -d   Modo delete: elimina el Deployment y el Service de Nginx en el namespace 'nginx' en lugar de crearlos."
   exit 1
 }
 
@@ -22,13 +22,13 @@ while getopts ":d" opt; do
 done
 
 NAMESPACE="nginx"
-POD_NAME="nginx-pod"
+POD_NAME="nginx-deployment"
 SERVICE_NAME="nginx-service"
 
 # Archivos YAML originales y temporales (para corregir el namespace)
-POD_YAML_ORIG="nginx-pod.yaml"
+POD_YAML_ORIG="nginx-deployment.yaml"
 SERVICE_YAML_ORIG="nginx-service.yaml"
-POD_YAML_TEMP="nginx-pod-temp.yaml"
+POD_YAML_TEMP="nginx-deployment-temp.yaml"
 SERVICE_YAML_TEMP="nginx-service-temp.yaml"
 
 # Crear el namespace si no existe
@@ -40,21 +40,22 @@ fi
 # Modificar los YAML para que usen el namespace "nginx"
 # Se reemplaza "namespace: default" por "namespace: nginx" si está definido en el YAML
 if grep -q "namespace:" "$POD_YAML_ORIG"; then
-  sed "s/namespace: default/namespace: ${NAMESPACE}/g" "$POD_YAML_ORIG" > "$POD_YAML_TEMP"
+  sed "s/namespace:[[:space:]]*__namespace__/namespace: ${NAMESPACE}/g" "$POD_YAML_ORIG" > "$POD_YAML_TEMP"
 else
   cp "$POD_YAML_ORIG" "$POD_YAML_TEMP"
 fi
 
 if grep -q "namespace:" "$SERVICE_YAML_ORIG"; then
-  sed "s/namespace: default/namespace: ${NAMESPACE}/g" "$SERVICE_YAML_ORIG" > "$SERVICE_YAML_TEMP"
+  sed "s/namespace:[[:space:]]*__namespace__/namespace: ${NAMESPACE}/g" "$SERVICE_YAML_ORIG" > "$SERVICE_YAML_TEMP"
 else
   cp "$SERVICE_YAML_ORIG" "$SERVICE_YAML_TEMP"
 fi
 
 if [ "$DELETE_MODE" = true ]; then
-  echo "Modo delete activado: eliminando el Pod y el Service de Nginx en el namespace '$NAMESPACE'..."
+  echo "Modo delete activado: eliminando el Deployment y el Service de Nginx en el namespace '$NAMESPACE'..."
   kubectl delete -f "$POD_YAML_TEMP" --namespace "$NAMESPACE" --ignore-not-found
   kubectl delete -f "$SERVICE_YAML_TEMP" --namespace "$NAMESPACE" --ignore-not-found
+  kubectl delete namespace "$NAMESPACE"
   echo "Recursos eliminados."
   # Eliminar archivos temporales
   rm -f "$POD_YAML_TEMP" "$SERVICE_YAML_TEMP"
@@ -69,17 +70,16 @@ kubectl apply -f "$POD_YAML_TEMP" --namespace "$NAMESPACE"
 echo "Aplicando manifiesto para el Service de Nginx en el namespace '$NAMESPACE'..."
 kubectl apply -f "$SERVICE_YAML_TEMP" --namespace "$NAMESPACE"
 
-echo "Esperando a que el Pod '$POD_NAME' alcance el estado 'Running'..."
-# Espera hasta que el Pod esté en estado Running
+echo "Esperando a que al menos un Pod con la etiqueta 'app=nginx' alcance el estado 'Running' en el namespace '$NAMESPACE'..."
 while true; do
-  POD_STATUS=$(kubectl get pod "$POD_NAME" -n "$NAMESPACE" --output jsonpath='{.status.phase}' 2>/dev/null || echo "NotFound")
+  POD_STATUS=$(kubectl get pods -n "$NAMESPACE" -l app=nginx --output jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "NotFound")
   if [ "$POD_STATUS" = "Running" ]; then
-    echo "El Pod '$POD_NAME' está en estado Running."
+    echo "Al menos un Pod con la etiqueta 'app=nginx' está en estado Running."
     break
   elif [ "$POD_STATUS" = "NotFound" ]; then
-    echo "El Pod '$POD_NAME' aún no existe. Esperando 5 segundos..."
+    echo "Ningún Pod con la etiqueta 'app=nginx' encontrado. Esperando 5 segundos..."
   else
-    echo "Estado actual del Pod: $POD_STATUS. Esperando 5 segundos..."
+    echo "Estado actual del primer Pod: $POD_STATUS. Esperando 5 segundos..."
   fi
   sleep 5
 done

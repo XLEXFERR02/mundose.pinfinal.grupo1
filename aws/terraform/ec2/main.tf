@@ -30,7 +30,8 @@ resource "aws_instance" "bastion" {
   instance_type = var.instance_type
   key_name      = aws_key_pair.pin.key_name
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
-
+  subnet_id     = var.subnet_id
+  
    iam_instance_profile = aws_iam_instance_profile.ec2_admin_profile.name
 
   user_data = file("${path.module}/scripts/user_data.sh")

@@ -3,6 +3,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "subnet_id" {
+  description = "ID de la SUBNET"
+  type        = string
+}
+
 variable "ami_id" {
   description = "AMI para Ubuntu 22.04 LTS"
   default     = "ami-0e1bed4f06a3b463d"
