@@ -25,10 +25,10 @@ jobs:
           terraform_version: 1.5.0
 
       - name: Inicializar Terraform
-        run: cd terraform/aws/ec2 && terraform init
+        run: cd aws/terraform/ec2 && terraform init
 
       - name: Ejecutar terraform plan (sin bloqueo)
-        run: cd terraform/aws/ec2 && terraform plan -lock=false
+        run: cd aws/terraform/ec2 && terraform plan -lock=false
 
   apply:
     needs: plan
@@ -50,7 +50,7 @@ jobs:
           terraform_version: 1.5.0
 
       - name: Inicializar Terraform
-        run: cd terraform/aws/ec2 && terraform init
+        run: cd aws/terraform/ec2 && terraform init
 
       - name: Aplicar cambios con Terraform (sin bloqueo)
-        run: cd terraform/aws/ec2 && terraform apply -auto-approve -lock=false
+        run: cd aws/terraform/ec2 && terraform apply -auto-approve -lock=false
